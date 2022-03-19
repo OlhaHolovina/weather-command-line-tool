@@ -24,7 +24,7 @@ axios.request(options).then(function (response) {
   console.log(text);
   writeToLog(text);
 }).catch(function () {
-  const text = 'error: no such town or something wrong with the request';
+  const text = 'error, no such town or something wrong with the request';
   console.error(text);
   writeToLog(text);
 });
