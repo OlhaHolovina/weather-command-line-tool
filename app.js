@@ -1,8 +1,11 @@
 const axios = require("axios").default;
+const writeToLog = require("./writeToLog");
 
 const town = process.argv[2];
 if (!town) {
-  console.log('Enter the town, please!');
+  const text = 'Enter the town, please!';
+  console.log(text);
+  writeToLog(text);
   process.exit();
 }
 
@@ -16,7 +19,12 @@ const options = {
 };
 
 axios.request(options).then(function (response) {
-  console.log(response.data);
-}).catch(function (error) {
-  console.error(error);
+  const data = response.data;
+  const text = `Weather in ${data.location.name}, ${data.location.region}, ${data.location.country}: ${data.current.temp_c}°, ${data.current.condition.text}`;
+  console.log(text);
+  writeToLog(text);
+}).catch(function () {
+  const text = 'error: no such town or something wrong with the request';
+  console.error(text);
+  writeToLog(text);
 });
